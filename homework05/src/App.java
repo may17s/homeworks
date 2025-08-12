@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -5,7 +6,7 @@ public class App {
     public static void main(String[] args) {
 
         try (Scanner scanner = new Scanner(System.in)) {
-            TelevisionSet[] tvsetArray = new TelevisionSet[10];
+            TelevisionSet[] tvsetArray = new TelevisionSet[3];
             Random random = new Random();
             int[] screenSizes = {24, 25, 27, 32};
             String[] models = {"X1000", "UltraHD", "OLED55", "QLED4K", "SmartView"};
@@ -38,9 +39,16 @@ public class App {
                 tvsetArray[i] = tvSet;
             }
 
+            System.out.print("\nВведите допустимую для вас громкость (рекомендуется от 50 до 70): ");
+            int maxVolume = scanner.nextInt();
+
+            System.out.println("Сортируем телевизоры по номеру канала.");
+            Arrays.sort(tvsetArray, (tv1, tv2) -> Integer.compare(tv1.getCurrentChannel(), tv2.getCurrentChannel()));
+
+            System.out.println("Выводим отсортированный список телевизоров:");
             for(TelevisionSet tvset:tvsetArray) {
-               if(tvset.getTvSwitch()) {
-                   System.out.println("\n"+tvset);
+               if(tvset.getTvSwitch() && tvset.getVolume() <= maxVolume) {
+                   System.out.println(tvset);
                }
             }
         }
