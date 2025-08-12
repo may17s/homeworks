@@ -17,12 +17,16 @@ public class App {
                 String brandName = scanner.nextLine();
                 System.out.print("ТВ№" + (i + 1) + ", Поддерживает Smart TV? (true/false): ");
                 boolean hasSmartTV = scanner.nextBoolean();
+                scanner.nextLine(); // чистим буфер
                 System.out.print("ТВ№" + (i + 1) + ", Номер текущего канала: ");
                 int currentChannel = scanner.nextInt();
+                scanner.nextLine(); // чистим буфер
                 System.out.print("ТВ№" + (i + 1) + ", Громкость звука (от 0 до 100): ");
                 int volume = scanner.nextInt();
+                scanner.nextLine(); // чистим буфер
                 System.out.print("ТВ№" + (i + 1) + ", Телевизор включен? (true/false): ");
                 boolean tvSwitch = scanner.nextBoolean();
+                scanner.nextLine(); // чистим буфер
 
                 TelevisionSet tvSet = new TelevisionSet(
                         screenSizes[random.nextInt(screenSizes.length)],
@@ -32,7 +36,12 @@ public class App {
                 tvSet.setVolume(volume);
                 if (tvSwitch) tvSet.setTvSwitch();
                 tvsetArray[i] = tvSet;
-                System.out.println(tvSet);
+            }
+
+            for(TelevisionSet tvset:tvsetArray) {
+               if(tvset.getTvSwitch()) {
+                   System.out.println("\n"+tvset);
+               }
             }
         }
     }

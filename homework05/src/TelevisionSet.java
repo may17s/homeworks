@@ -89,7 +89,7 @@ public class TelevisionSet {
         if (volume >= 0 && volume <= 100) {
             this.volume = volume;
         } else {
-            System.out.println("Громкость должна быть в диапазоне от 0 до 100.");
+            System.out.println("Громкость должна быть в диапазоне от 0 до 100 (по умолчанию 25)");
         }
     }
 
