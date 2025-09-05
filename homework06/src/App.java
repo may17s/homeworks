@@ -85,5 +85,22 @@ public class App {
                 System.out.println(person);
             }
         }
+
+        // Создаём сущности
+        Program newsProgram = new Program("Новости", 8.5, 1000000);
+        Program movieProgram = new Program("Очень интересный фильм", 9.2, 500000);
+
+        Channel channel1 = new Channel("Первый канал", 1, newsProgram);
+        Channel channel2 = new Channel("Россия-1", 2, movieProgram);
+
+        Channel[] channels = {channel1, channel2};
+        TelevisionSet tv = new TelevisionSet(55, TelevisionSet.DisplayTechnology.OLED, "Samsung", "QLED 4K", true, channels);
+
+        tv.setTvSwitch(); // Включим телевизор
+        System.out.println(tv); // Вывод информации о телевизоре
+
+        tv.changeChannel(2); // Переключимся на второй канал
+        System.out.println(tv.getCurrentChannel()); // Вывод текущего канала
+        tv.setTvSwitch(); // Выключим телевизор
     }
 }
