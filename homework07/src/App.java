@@ -1,89 +1,78 @@
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        // Тестовые данные №1
-        Person[] persons = new Person[] {
-            new Person("Павел Андреевич", 10000),
-            new Person("Анна Петровна", 2000),
-            new Person("Борис", 10)
-        };
 
-        // Тестовые данные №2
-        /*
-        Person[] persons = new Person[] {
-                new Person("Женя", 0)
-        };
-        */
-        // Тестовые данные №3
-        /*
-        Person[] persons = new Person[] {
-                new Person("Света", -3)
-        };
-        */
-
-        Product[] products = new Product[] {
-            new Product("Хлеб", 40),
-            new Product("Молоко", 60),
-            new Product("Торт", 1000),
-            new Product("Кофе растворимый", 879),
-            new Product("Масло", 150),
-            new Product("Мороженое", 200),
-            new Product("Макароны", 800)
-        };
+        List<Product> products = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.println("Введите имя покупателя и название продукта через запятую (или END для завершения):");
+                System.out.println("Введите название продукта и через = сумму, через запятую скидку (или END для завершения):");
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("END")) {
                     break;
                 }
 
-                String[] parts = input.split(",", 2);
+                String[] parts = input.split("=", 2);
                 if (parts.length != 2) {
                     System.out.println("Неверный формат ввода.");
                     continue;
                 }
 
-                String personName = parts[0];
-                String productName = parts[1];
+                String productName = parts[0].trim();
+                String cost = parts[1].trim();
+                try {
+                    if (!input.contains(",")) {
+                        // обычный продукт
+                        products.add(new Product(productName, Double.parseDouble(cost)));
+                    } else {
+                        String[] costParts = cost.split(",", 2);
+                        if (costParts.length != 2) {
+                            System.out.println("Неверный формат ввода цены.");
+                            continue;
+                        }
+                        cost = costParts[0].trim();
+                        String percent = costParts[1].replace("%", "").trim();
+                        products.add(new DiscountProduct(productName,
+                                Double.parseDouble(cost),
+                                Double.parseDouble(percent),
+                                LocalDate.now().plusMonths(1)
+                        ));
 
-                int index = -1;
-                for (int i = 0; i < persons.length; i++) {
-                    if (persons[i].getName().equals(personName)) {
-                        index = i;
-                        break;
                     }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
-
-                if(index == -1) {
-                    System.out.println("Неизвестный покупатель: " + personName);
-                    continue;
-                }
-
-                Person person = persons[index];
-
-                index = -1;
-                for (int i = 0; i < products.length; i++) {
-                    if (products[i].getName().equals(productName)) {
-                        index = i;
-                        break;
-                    }
-                }
-
-                if(index == -1) {
-                    System.out.println("Неизвестный продукт: " + productName);
-                    continue;
-                }
-
-                person.buy(products[index]);
             }
+        }
 
-            for(Person person: persons) {
-                System.out.println(person);
+        if (!products.isEmpty()) {
+            System.out.print("Обычные продукты: ");
+            boolean hasRegular = false;
+            for (Product p : products) {
+                if (!(p instanceof DiscountProduct)) {
+                    if (hasRegular) System.out.print(", ");
+                    System.out.print(p.getName());
+                    hasRegular = true;
+                }
             }
+            if (!hasRegular) System.out.print("Нет");
+            System.out.println();
+
+            System.out.print("Акционные продукты: ");
+            boolean hasDiscount = false;
+            for (Product p : products) {
+                if (p instanceof DiscountProduct) {
+                    if (hasDiscount) System.out.print(", ");
+                    System.out.print(p.getName());
+                    hasDiscount = true;
+                }
+            }
+            if (!hasDiscount) System.out.print("Нет");
+            System.out.println();
         }
     }
 }
