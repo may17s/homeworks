@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Product {
@@ -18,29 +19,36 @@ public class Product {
     }
 
     public void setName(String name) {
+        // валидация
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Название продукта не может быть пустым");
+            throw new IllegalArgumentException("Недопустимое имя продукта! Не может быть пустым!");
+        }
+        if (name.length() < 3) {
+            throw new IllegalArgumentException("Недопустимое имя продукта! Должно быть больше 3 символов!");
+        }
+        if (name.matches("\\d+")) {
+            throw new IllegalArgumentException("Недопустимое имя продукта! Не может содержать только цифры!");
         }
         this.name = name;
     }
 
     public void setCost(double cost) {
-        if (cost < 0) {
-            throw new IllegalArgumentException("Стоимость продукта не может быть отрицательной");
+        if (cost <= 0) {
+            throw new IllegalArgumentException("Недопустимая стоимость продукта!");
         }
         this.cost = cost;
     }
 
     @Override
     public String toString() {
-        return name + ", " + cost + "руб.";
+        DecimalFormat df = new DecimalFormat("0.##");
+        return name + " = " + df.format(cost);
     }
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-
         Product product = (Product) object;
         return Double.compare(product.cost, cost) == 0
                 && Objects.equals(name, product.name);
