@@ -5,11 +5,15 @@ import java.util.Objects;
 public class Person {
     private String name;
     private double money;
+    private int age;
+    private boolean canTakeCredit;
     private List<Product> bag;
 
-    public Person(String name, double money) {
+    public Person(String name, double money, int age) {
         this.setName(name);
         this.setMoney(money);
+        this.setAge(age);
+        this.setCanTakeCredit(false);
         this.bag = new ArrayList<>();
     }
 
@@ -34,6 +38,23 @@ public class Person {
         }
         this.money = money;
     }
+
+    public int getAge() { return age; }
+    public void setAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        }
+        this.age = age;
+    }
+
+    public boolean isCanTakeCredit() {
+        return canTakeCredit;
+    }
+
+    public void setCanTakeCredit(boolean canTakeCredit) {
+        this.canTakeCredit = canTakeCredit;
+    }
+
 
     public List<Product> getBag() {
         return new ArrayList<>(bag);
@@ -75,11 +96,13 @@ public class Person {
 
         Person person = (Person) object;
         return Double.compare(person.money, money) == 0
+                && age == person.age
+                && canTakeCredit == person.canTakeCredit
                 && Objects.equals(name, person.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, money);
+        return Objects.hash(name, money, age, canTakeCredit);
     }
 }
