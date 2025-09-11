@@ -1,7 +1,7 @@
 public class Child extends Person {
     public Child(String name, double money, int age) {
         super(name, money, age);
-        if (age > 0 && age < 17) {
+        if (age < 0 || age > 17) {
             throw new IllegalArgumentException("Возраст ребенка должен быть от 0 до 17 лет");
         }
     }
