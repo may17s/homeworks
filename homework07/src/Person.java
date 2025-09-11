@@ -57,7 +57,7 @@ public class Person {
 
 
     public List<Product> getBag() {
-        return new ArrayList<>(bag);
+        return bag;
     }
 
     public void buy(Product product) {
