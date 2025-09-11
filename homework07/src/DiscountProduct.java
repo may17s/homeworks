@@ -5,8 +5,8 @@ public class DiscountProduct extends Product {
     private double discountPercentage; // Размер (процент) скидки
     private LocalDate expirationDate;  // Срок действия скидки
 
-    public DiscountProduct(String name, double originalCost, double discountPercentage, LocalDate expirationDate) {
-        super(name, originalCost);
+    public DiscountProduct(String name, double originalCost, double discountPercentage, LocalDate expirationDate, boolean isAvailableForChildren) {
+        super(name, originalCost, isAvailableForChildren);
 
         this.setDiscountPercentage(discountPercentage);
         this.setExpirationDate(expirationDate);
