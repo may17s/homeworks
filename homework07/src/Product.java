@@ -4,10 +4,12 @@ import java.util.Objects;
 public class Product {
     private String name;
     private double cost;
+    private boolean isAvailableForChildren;
 
-    public Product(String name, double cost) {
+    public Product(String name, double cost, boolean isAvailableForChildren) {
         this.setName(name);
         this.setCost(cost);
+        this.setAvailableForChildren(isAvailableForChildren);
     }
 
     public String getName() {
@@ -16,6 +18,10 @@ public class Product {
 
     public double getCost() {
         return cost;
+    }
+
+    public boolean isAvailableForChildren() {
+        return isAvailableForChildren;
     }
 
     public void setName(String name) {
@@ -39,10 +45,14 @@ public class Product {
         this.cost = cost;
     }
 
+    public void setAvailableForChildren(boolean availableForChildren) {
+        this.isAvailableForChildren = availableForChildren;
+    }
+
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.##");
-        return name + " = " + df.format(cost);
+        return name + " = " + df.format(cost) + (isAvailableForChildren ? " (для детей)" : " (не для детей)");
     }
 
     @Override
@@ -51,11 +61,12 @@ public class Product {
         if (object == null || getClass() != object.getClass()) return false;
         Product product = (Product) object;
         return Double.compare(product.cost, cost) == 0
+                && isAvailableForChildren == product.isAvailableForChildren
                 && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, cost);
+        return Objects.hash(name, cost, isAvailableForChildren);
     }
 }
