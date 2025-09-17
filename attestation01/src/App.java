@@ -3,7 +3,7 @@ import repositories.UsersRepositoryFileImpl;
 
 import java.util.List;
 
-public class Main {
+public class App {
 
     private static final String GUID_TEST_ID = "004c16a2-64b9-4c18-806f-87f3385c788f";
 
