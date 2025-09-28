@@ -1,7 +1,9 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Race {
     private int length;
@@ -29,4 +31,21 @@ public class Race {
         return String.format("Race {length=%d, route='%s', prize=%d, cars=%s}",
                 length, route, prize, cars.toString());
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Race race)) return false;
+
+        return length == race.length &&
+                route.equals(race.route) &&
+                prize == race.prize &&
+                Objects.equals(cars, race.cars);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(length, route, prize, cars);
+    }
+
 }
