@@ -81,7 +81,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.format("model.Car {brand='%s', model='%s', year=%d, power=%d, acceleration=%d, suspension=%d, durability=%d}",
+        return String.format("\n\tmodel.Car {brand='%s', model='%s', year=%d, power=%d, acceleration=%d, suspension=%d, durability=%d}",
                 brand, model, year, power, acceleration, suspension, durability);
     }
 
