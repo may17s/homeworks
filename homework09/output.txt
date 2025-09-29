@@ -1,0 +1,10 @@
+Garage {parkedCars=[
+	model.Car {brand='Renault', model='Megane 2', year=2008, power=150, acceleration=9, suspension=85, durability=95}, 
+	model.Car {brand='Ford', model='Focus', year=2009, power=1005, acceleration=3, suspension=75, durability=80}, addOns=[], 
+	model.Car {brand='Opel', model='Astra', year=2008, power=450, acceleration=5, suspension=90, durability=90}, stars=4]}
+
+Race {length=1000, route='Владивосток', prize=5000, cars=[]}
+Race {length=400, route='Экстра гонка', prize=20000, cars=[]}
+Race {length=800, route='Адыгея', prize=15000, cars=[]}
+TimeLimitRace {Race {length=800, route='Крым', prize=25000, cars=[]}, goldTime=55}
+CircuitRace {Race {length=5000, route='Севастополь', prize=100000, cars=[]}, laps=10}

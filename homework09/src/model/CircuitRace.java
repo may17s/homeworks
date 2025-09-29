@@ -6,7 +6,7 @@ public class CircuitRace extends Race {
     private int laps;
 
     public CircuitRace() { super(); }
-    public CircuitRace(int length, String route, int prize) {
+    public CircuitRace(int length, String route, int prize, int laps) {
         super(length, route, prize);
         this.setLaps(laps);
     }
