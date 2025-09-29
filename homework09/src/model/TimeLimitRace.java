@@ -9,7 +9,7 @@ public class TimeLimitRace extends Race {
 
     public TimeLimitRace(int length, String route, int prize, int goldTime) {
         super(length, route, prize);
-        this.goldTime = goldTime;
+        this.setGoldTime(goldTime);
     }
 
     public int getGoldTime() {
@@ -22,9 +22,7 @@ public class TimeLimitRace extends Race {
 
     @Override
     public String toString() {
-        return "TimeLimitRace{" +
-                "goldTime=" + goldTime +
-                '}';
+        return String.format("TimeLimitRace {%s, goldTime=%d}", super.toString(), goldTime);
     }
 
     @Override
