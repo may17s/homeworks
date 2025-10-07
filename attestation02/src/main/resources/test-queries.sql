@@ -33,5 +33,17 @@ DELETE FROM customer
 SELECT c.full_name, p.description, o.quantity, p.price, 
     (o.quantity * p.price) AS total
   FROM "order" o
-  JOIN customer c ON o.customer_id = c.id
-  JOIN product p  ON o.product_id  = p.id;
+    JOIN customer c ON o.customer_id = c.id
+    JOIN product p   ON o.product_id    = p.id;
+
+-- Выводим товары, которые были заказаны хотя бы один раз
+SELECT DISTINCT p.id, p.description, p.price
+  FROM product p
+  JOIN "order" o ON p.id = o.product_id;
+
+-- Выводим покупателей, у которых более одного заказа
+SELECT c.full_name, COUNT(*) AS order_count
+  FROM customer c
+  JOIN "order" o ON c.id = o.customer_id
+  GROUP BY c.id, c.full_name
+  HAVING COUNT(*) > 1;

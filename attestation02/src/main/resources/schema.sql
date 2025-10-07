@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS "order" (
 );
 COMMENT ON TABLE "order" IS 'Заказы';
 
+-- Очистка при повторном запуске
+TRUNCATE TABLE "order", customer, product RESTART IDENTITY CASCADE;
+
 -- Вставка в таблицу "Товары"
 INSERT INTO product (description, price, quantity) VALUES
 ('Apple MacBook Air M2 13" 8GB/256GB', 89990.00, 12),
