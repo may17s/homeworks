@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Objects;
 
 public class TelevisionSet {
@@ -9,7 +10,8 @@ public class TelevisionSet {
     private String brandName; // Марка
     private String modelName; // Модель
     private boolean hasSmartTV; // Имеет ли Smart TV
-    private int currentChannel; // текущий канал
+    private int currentChannelIndex; // текущий канал
+    private Channel[] channels; // список каналов
     private int volume; // Громкость (0..100)
     private boolean tvSwitch; // Признак включенного телевизора
 
@@ -19,20 +21,21 @@ public class TelevisionSet {
         this.brandName = "";
         this.modelName = "";
         this.hasSmartTV = false;
-        this.currentChannel = 1;
+        this.currentChannelIndex = 0;
         this.volume = 25;
         this.tvSwitch = false;
     }
 
-    public TelevisionSet(int screenSize, DisplayTechnology displayTechnology, String brandName, String modelName, boolean hasSmartTV) {
+    public TelevisionSet(int screenSize, DisplayTechnology displayTechnology, String brandName, String modelName, boolean hasSmartTV, Channel[] channels) {
         this.screenSize = screenSize;
         this.displayTechnology = displayTechnology;
         this.brandName = brandName;
         this.modelName = modelName;
         this.hasSmartTV = hasSmartTV;
-        this.currentChannel = 1;
+        this.currentChannelIndex = 0;
         this.volume = 25;
         this.tvSwitch = false;
+        this.channels = channels;
     }
 
     public int getScreenSize() {
@@ -77,11 +80,6 @@ public class TelevisionSet {
         return hasSmartTV;
     }
 
-    public int getCurrentChannel() { return currentChannel; }
-
-    public void setCurrentChannel(int currentChannel) {
-        this.currentChannel = currentChannel;
-    }
 
     public int getVolume() { return volume; }
 
@@ -95,7 +93,33 @@ public class TelevisionSet {
 
     public boolean getTvSwitch() { return tvSwitch; }
 
-    public void setTvSwitch() { this.tvSwitch = true; }
+    public void setTvSwitch() { this.tvSwitch = !this.tvSwitch; }
+
+    public void changeChannel(int channelNumber) {
+        if (!tvSwitch) {
+            System.out.println("Телевизор выключен. Включение...");
+            setTvSwitch();
+        }
+        for (int i = 0; i < channels.length; i++) {
+            if (channels[i].getNumber() == channelNumber) {
+                currentChannelIndex = i;
+                System.out.printf("Переключено на канал: %s%n", channels[i].getName());
+                return;
+            }
+        }
+        System.out.println("Канал не найден.");
+    }
+
+    public void setChannels(Channel[] channels) {
+        this.channels = channels;
+    }
+
+    public Channel getCurrentChannel() {
+        if (channels.length > 0 && currentChannelIndex < channels.length) {
+            return channels[currentChannelIndex];
+        }
+        return null;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -105,22 +129,23 @@ public class TelevisionSet {
         TelevisionSet televisionSet = (TelevisionSet) object;
         return screenSize == televisionSet.screenSize
                 && hasSmartTV == televisionSet.hasSmartTV
-                && currentChannel == televisionSet.currentChannel
+                && currentChannelIndex == televisionSet.currentChannelIndex
                 && volume == televisionSet.volume
                 && tvSwitch == televisionSet.tvSwitch
                 && Objects.equals(brandName, televisionSet.brandName)
-                && Objects.equals(modelName, televisionSet.modelName);
+                && Objects.equals(modelName, televisionSet.modelName)
+                && Objects.deepEquals(channels, televisionSet.channels);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brandName, modelName, screenSize, hasSmartTV, currentChannel, volume, tvSwitch);
+        return Objects.hash(brandName, modelName, screenSize, hasSmartTV, currentChannelIndex, volume, tvSwitch, Arrays.deepHashCode(channels));
     }
 
     @Override
     public String toString() {
         return String.format("Класс: Телевизор: " +
-            "{Диагональ: %d дюймов, Тип матрицы: %s, Марка: %s, Модель: %s, Smart TV: %s, Текущий канал= %d, Громкость=%d, Включен=%s}",
-                screenSize, displayTechnology.toString(), brandName, modelName, (hasSmartTV ? "Да" : "Нет"), currentChannel, volume, (tvSwitch ? "Да" : "Нет"));
+            "{Диагональ: %d дюймов, Тип матрицы: %s, Марка: %s, Модель: %s, Smart TV: %s, Текущий канал= %s, Громкость=%d, Включен=%s}",
+                screenSize, displayTechnology.toString(), brandName, modelName, (hasSmartTV ? "Да" : "Нет"), getCurrentChannel(), volume, (tvSwitch ? "Да" : "Нет"));
     }
 }

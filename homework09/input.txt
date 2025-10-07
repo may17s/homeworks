@@ -1,0 +1,8 @@
+Car;Renault;Megane 2;2008;150;9;85;95
+PerformanceCar;Ford;Focus;2009;670;3;100;80
+ShowCar;Opel;Astra;2008;450;5;90;90;4
+CasualRace;1000;Владивосток;5000
+DragRace;400;Экстра гонка;20000
+DriftRace;800;Адыгея;15000
+TimeLimitRace;800;Крым;25000;55
+CircuitRace;5000;Севастополь;100000;10
