@@ -3,6 +3,7 @@ package org.example.repository;
 import org.example.model.Car;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CarsRepositoryImpl implements CarsRepository {
     @Override
     public List<Car> getAllCars() {
         try {
-            return Files.lines(Paths.get(filePath))
+            return Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)
                     .map(this::parseCar)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
