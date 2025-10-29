@@ -80,6 +80,7 @@ public class Main {
                 System.err.println("Ошибка валидации: " + e.getMessage());
             } catch (Exception e) {
                 System.err.println("Ошибка записи в файл: " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
