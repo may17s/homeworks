@@ -71,7 +71,7 @@ public class Main {
 
                 String filename = person.getLastName() + ".txt";
                 try (FileWriter writer = new FileWriter(filename, true)) {
-                    writer.write(person.toString() + "\n");
+                    writer.write(person + "\n");
                     System.out.println("Данные успешно записаны в файл " + filename);
                 }
 
@@ -79,9 +79,7 @@ public class Main {
                      InvalidPhoneException | InvalidGenderException | InvalidAgeException e) {
                 System.err.println("Ошибка валидации: " + e.getMessage());
             } catch (Exception e) {
-                System.err.println("Ошибка записи в файл:");
-                e.printStackTrace();
-            } finally {
+                System.err.println("Ошибка записи в файл: " + e.getMessage());
             }
         }
     }
