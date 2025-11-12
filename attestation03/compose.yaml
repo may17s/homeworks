@@ -1,1 +1,11 @@
 services:
+  postgres:
+    image: 'postgres:13'
+    container_name: 'a03-postgres'
+    ports:
+    - "5432:5432"
+    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/a03
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=a03
+      - POSTGRES_PASSWORD=LEwjZrX56_U8qT#
