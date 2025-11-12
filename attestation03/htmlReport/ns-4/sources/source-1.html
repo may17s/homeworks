@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EntityMapper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.may.a03.util</a>
+</div>
+
+<h1>Coverage Summary for Class: EntityMapper (com.may.a03.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EntityMapper</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    74.3%
+  </span>
+  <span class="absValue">
+    (26/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.may.a03.util;
+&nbsp;
+&nbsp;import com.may.a03.dto.MedicalNoteDto;
+&nbsp;import com.may.a03.dto.PatientDto;
+&nbsp;import com.may.a03.model.MedicalNote;
+&nbsp;import com.may.a03.model.Patient;
+&nbsp;import com.may.a03.model.Disease;
+&nbsp;import com.may.a03.repository.PatientRepository;
+&nbsp;import com.may.a03.repository.DiseaseRepository;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;@Component
+&nbsp;public class EntityMapper {
+&nbsp;    private final PatientRepository patientRepo;
+&nbsp;    private final DiseaseRepository diseaseRepo;
+&nbsp;
+<b class="fc">&nbsp;    public EntityMapper(PatientRepository patientRepo, DiseaseRepository diseaseRepo) {</b>
+<b class="fc">&nbsp;        this.patientRepo = patientRepo;</b>
+<b class="fc">&nbsp;        this.diseaseRepo = diseaseRepo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // MedicalNote
+&nbsp;    public MedicalNote toEntity(MedicalNoteDto dto) {
+<b class="fc">&nbsp;        MedicalNote note = new MedicalNote();</b>
+<b class="fc">&nbsp;        note.setPatient(patientRepo.findById(dto.getPatientId())</b>
+<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Пациент не найден&quot;)));</b>
+<b class="fc">&nbsp;        note.setDisease(diseaseRepo.findById(dto.getDiseaseId())</b>
+<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Заболевание не найдено&quot;)));</b>
+<b class="fc">&nbsp;        note.setNoteDate(dto.getNoteDate());</b>
+<b class="fc">&nbsp;        note.setNote(dto.getNote());</b>
+<b class="fc">&nbsp;        return note;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public MedicalNoteDto toDto(MedicalNote entity) {
+<b class="fc">&nbsp;        MedicalNoteDto dto = new MedicalNoteDto();</b>
+<b class="fc">&nbsp;        dto.setId(entity.getId());</b>
+<b class="fc">&nbsp;        dto.setPatientId(entity.getPatient().getId());</b>
+<b class="fc">&nbsp;        dto.setDiseaseId(entity.getDisease().getId());</b>
+<b class="fc">&nbsp;        dto.setNoteDate(entity.getNoteDate());</b>
+<b class="fc">&nbsp;        dto.setNote(entity.getNote());</b>
+<b class="fc">&nbsp;        return dto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Patient
+&nbsp;    public Patient toEntity(PatientDto dto) {
+<b class="nc">&nbsp;        Patient entity = dto.getId() != null ?</b>
+<b class="nc">&nbsp;                patientRepo.findById(dto.getId()).orElse(new Patient()) :</b>
+<b class="nc">&nbsp;                new Patient();</b>
+<b class="nc">&nbsp;        entity.setFullName(dto.getFullName());</b>
+<b class="nc">&nbsp;        entity.setBirthDate(dto.getBirthDate());</b>
+<b class="nc">&nbsp;        entity.setGender(dto.getGender());</b>
+<b class="nc">&nbsp;        entity.setPhone(dto.getPhone());</b>
+<b class="nc">&nbsp;        entity.setAddress(dto.getAddress());</b>
+&nbsp;
+<b class="nc">&nbsp;        return entity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public PatientDto toDto(Patient entity) {
+<b class="fc">&nbsp;        PatientDto dto = new PatientDto();</b>
+<b class="fc">&nbsp;        dto.setId(entity.getId());</b>
+<b class="fc">&nbsp;        dto.setFullName(entity.getFullName());</b>
+<b class="fc">&nbsp;        dto.setBirthDate(entity.getBirthDate());</b>
+<b class="fc">&nbsp;        dto.setGender(entity.getGender());</b>
+<b class="fc">&nbsp;        dto.setPhone(entity.getPhone());</b>
+<b class="fc">&nbsp;        dto.setAddress(entity.getAddress());</b>
+<b class="fc">&nbsp;        return dto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-12 15:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MedicalNoteController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.may.a03.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: MedicalNoteController (com.may.a03.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MedicalNoteController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22.2%
+  </span>
+  <span class="absValue">
+    (2/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.may.a03.controller;
+&nbsp;
+&nbsp;import com.may.a03.dto.MedicalNoteDto;
+&nbsp;import com.may.a03.service.MedicalNoteService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/notes&quot;)
+&nbsp;public class MedicalNoteController {
+&nbsp;    private final MedicalNoteService service;
+&nbsp;
+<b class="fc">&nbsp;    public MedicalNoteController(MedicalNoteService service) {</b>
+<b class="fc">&nbsp;        this.service = service;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    @ResponseBody
+&nbsp;    public List&lt;MedicalNoteDto&gt; getAll() {
+<b class="nc">&nbsp;        return service.getAllActive();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(value = &quot;/{id}&quot;)
+&nbsp;    @ResponseStatus(HttpStatus.OK)
+&nbsp;    @ResponseBody
+&nbsp;    public ResponseEntity&lt;MedicalNoteDto&gt; getById(@PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(service.findById(id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping
+&nbsp;    @ResponseStatus(HttpStatus.CREATED)
+&nbsp;    @ResponseBody
+&nbsp;    public MedicalNoteDto create(@Valid @RequestBody MedicalNoteDto dto) {
+<b class="nc">&nbsp;        return service.create(dto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;Void&gt; delete(@PathVariable Long id) {
+<b class="nc">&nbsp;        service.softDelete(id);</b>
+<b class="nc">&nbsp;        return ResponseEntity.noContent().build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/{id}&quot;)
+&nbsp;    @ResponseStatus(HttpStatus.OK)
+&nbsp;    public ResponseEntity&lt;MedicalNoteDto&gt; update(
+&nbsp;            @PathVariable Long id,
+&nbsp;            @RequestBody @Valid MedicalNoteDto dto) {
+<b class="nc">&nbsp;        MedicalNoteDto updated = service.update(id, dto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(updated);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-12 15:04</div>
+</div>
+</body>
+</html>

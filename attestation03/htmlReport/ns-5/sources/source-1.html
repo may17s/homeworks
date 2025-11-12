@@ -1,0 +1,104 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MedicalNote</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.may.a03.model</a>
+</div>
+
+<h1>Coverage Summary for Class: MedicalNote (com.may.a03.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">MedicalNote$HibernateInstantiator</td>
+  </tr>
+  <tr>
+    <td class="name">MedicalNote$HibernateProxy</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.may.a03.model;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import lombok.Data;
+&nbsp;import org.hibernate.annotations.Comment;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;medical_notes&quot;)
+&nbsp;@Comment(&quot;Запись&quot;)
+&nbsp;@Data
+&nbsp;public class MedicalNote {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private Long id;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;patient_id&quot;, nullable = false)
+&nbsp;    private Patient patient;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;disease_id&quot;, nullable = false)
+&nbsp;    private Disease disease;
+&nbsp;
+&nbsp;    private java.time.LocalDate noteDate;
+&nbsp;    private String note;
+&nbsp;
+&nbsp;    @Column(name = &quot;is_deleted&quot;)
+&nbsp;    private boolean deleted = false;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-12 15:04</div>
+</div>
+</body>
+</html>
