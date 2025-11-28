@@ -5,7 +5,19 @@ services:
     ports:
     - "5432:5432"
     environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/a03
       - POSTGRES_USER=postgres
       - POSTGRES_DB=a03
       - POSTGRES_PASSWORD=LEwjZrX56_U8qT#
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 1s
+      timeout: 1s
+      retries: 60
+  app:
+    container_name: 'a03-app'
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
