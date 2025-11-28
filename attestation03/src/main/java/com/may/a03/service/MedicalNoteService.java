@@ -2,12 +2,14 @@ package com.may.a03.service;
 
 import com.may.a03.dto.MedicalNoteDto;
 import com.may.a03.dto.PatientDto;
+import com.may.a03.exception.MedicalNoteNotFoundException;
 import com.may.a03.model.MedicalNote;
 import com.may.a03.repository.MedicalNoteRepository;
 import com.may.a03.util.EntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +32,7 @@ public class MedicalNoteService {
 
     public MedicalNoteDto findById(Long id) {
         MedicalNote note = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Запись не найдена"));
+                .orElseThrow(() -> new RuntimeException("Медицинская запись с ID = " + id + " не найдена!"));
         return mapper.toDto(note);
     }
 
@@ -42,14 +44,14 @@ public class MedicalNoteService {
 
     public void softDelete(Long id) {
         MedicalNote record = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Запись не найдена"));
+                .orElseThrow(() -> new MedicalNoteNotFoundException(id));
         record.setDeleted(true);
         repository.save(record);
     }
 
     public MedicalNoteDto update(Long id, MedicalNoteDto dto) {
         MedicalNote existing = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Запись с номером : " + id + " не найдена"));
+                .orElseThrow(() -> new MedicalNoteNotFoundException(id));
 
         MedicalNote updated = mapper.toEntity(dto);
         updated.setId(existing.getId());

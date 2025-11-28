@@ -1,8 +1,6 @@
 package com.may.a03.service;
 
-import com.may.a03.dto.MedicalNoteDto;
 import com.may.a03.dto.PatientDto;
-import com.may.a03.model.MedicalNote;
 import com.may.a03.model.Patient;
 import com.may.a03.repository.PatientRepository;
 import com.may.a03.util.EntityMapper;
@@ -35,11 +33,4 @@ public class PatientService {
         Patient saved = repository.save(entity);
         return mapper.toDto(saved);
     }
-
-    public PatientDto findById(Long id) {
-        Patient note = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Запись не найдена"));
-        return mapper.toDto(note);
-    }
-
 }
