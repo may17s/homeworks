@@ -1,7 +1,6 @@
 package com.may.a03.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 
